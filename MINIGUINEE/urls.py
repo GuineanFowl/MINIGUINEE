@@ -7,6 +7,7 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('LeMiniGUINEE.urls')),
     path('element/', include('Element.urls')), 
-    path('dashboard/', include('dashboard.urls')), 
+    path('dashboard/', include('dashboard.urls')),
+    path('inbox/', include('conversation.urls')), 
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

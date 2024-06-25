@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from Element.models import Element
@@ -5,6 +6,7 @@ from Element.models import Element
 from .forms import ConversationMessageForm
 from .models import Conversation
 
+@login_required
 def new_conversation(request, element_pk):
     element = get_object_or_404(Element, pk=element_pk)
 
@@ -38,3 +40,10 @@ def new_conversation(request, element_pk):
         'form': form
     })
 
+@login_required
+def inbox(request):
+    conversations = Conversation.objects.filter(membres__in=[request.user.id])
+
+    return render(request, 'conversation/inbox.html', {
+        'conversations': conversations
+    })

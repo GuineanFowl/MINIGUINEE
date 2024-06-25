@@ -1,0 +1,28 @@
+{% extends 'LeMiniGUINEE/base.html' %}
+
+{% block title %}Boite de reception{% endblock %}
+
+{% block content %}
+<h1 class="mb-6 text-3xl">Boite de reception</h1>
+
+<div class="space-y-6">
+    {% for conversation in conversations %}
+        <a href="#">
+            <div class="p-6 flex bg-gray-100 rounded-xl">
+                <div class="pr-6">
+                    <img src="{{ conversation.element.image.url }}" class="w-20 rounded-xl">
+                </div>
+
+                <div>
+                    {% for membre in conversation.membres.all %}
+                        {% if membre != request.user %}
+                            <p class="mb-4"><strong>{{ membre.username }}</strong> | {{ conversation.modifie_a }}</p>
+                            <p>{{ conversation.element.nom }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>          
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}
